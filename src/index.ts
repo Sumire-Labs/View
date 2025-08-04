@@ -2,7 +2,13 @@ import './lib/setup';
 
 import { LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord.js';
-import '@sapphire/plugin-i18next/register'
+import '@sapphire/plugin-i18next/register';
+import type { InternationalizationContext } from '@sapphire/plugin-i18next';
+import Database from 'better-sqlite3';
+import { join } from 'path';
+
+const db = new Database('src/db.sqlite');
+const getGuildLanguageStatement = db.prepare('SELECT language FROM guild_language WHERE id = ?;');
 
 const client = new SapphireClient({
 	defaultPrefix: '!',
@@ -16,7 +22,17 @@ const client = new SapphireClient({
 		defaultName: 'ja',
 		defaultMissingKey: 'key_missing',
 		defaultNS: 'global',
-		fetchLanguage: () => 'ja'
+		defaultLanguageDirectory: join(__dirname, '..', 'languages'),
+		fetchLanguage: async (context: InternationalizationContext) => {
+			if (context.guild) {
+				const result = getGuildLanguageStatement.get(context.guild.id) as { language: string } | undefined;
+
+				if (result) {
+					return result.language;
+				}
+			}
+			return 'ja';
+		}
 	}
 });
 
