@@ -2,6 +2,7 @@ import './lib/setup';
 
 import { LogLevel, SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord.js';
+import '@sapphire/plugin-i18next/register'
 
 const client = new SapphireClient({
 	defaultPrefix: '!',
@@ -10,7 +11,13 @@ const client = new SapphireClient({
 		level: LogLevel.Debug
 	},
 	intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.GuildMessages, GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent],
-	loadMessageCommandListeners: true
+	loadMessageCommandListeners: true,
+	i18n: {
+		defaultName: 'ja',
+		defaultMissingKey: 'key_missing',
+		defaultNS: 'global',
+		fetchLanguage: () => 'ja'
+	}
 });
 
 const main = async () => {
