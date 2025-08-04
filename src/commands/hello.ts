@@ -1,5 +1,6 @@
 import { ApplyOptions } from '@sapphire/decorators';
 import { Command } from '@sapphire/framework';
+import { resolveKey } from '@sapphire/plugin-i18next';
 
 @ApplyOptions<Command.Options>({
 	description: 'Hello command.'
@@ -14,7 +15,6 @@ export class UserCommand extends Command {
 	}
 
 	public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
-		const message = this.container.i18n.getT(interaction.locale)('hello');
-		return interaction.reply({ content: message });
+		return interaction.reply(await resolveKey(interaction, 'global:hello'))
 	}
 }
