@@ -1,3 +1,6 @@
 {
-  "ping":
+  "ping": {
+    "ping": "Ping?",
+    "pong": "Pong! Bot Latency {{botLatency}}ms. API Latency {{apiLatency}}ms."
+  }
 }
