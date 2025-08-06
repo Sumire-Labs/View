@@ -1,0 +1,6 @@
+{
+  "ping": {
+    "ping": "ピン？",
+    "pong": "ポン！ ボットの遅延は{{botLatency}}ms。 APIの遅延は{{apiLatency}}ms."
+  }
+}
