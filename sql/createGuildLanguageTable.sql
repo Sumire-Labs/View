@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS guild_language (
+    id TEXT PRIMARY KEY NOT NULL,
+    language TEXT NOT NULL
+);
